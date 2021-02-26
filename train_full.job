@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH --job-name=FinchNetFull5Fold
+#SBATCH --time=0-05:00:00
+#SBATCH --ntasks=1
+
+### just increase this as necessary
+#SBATCH --mem=32g
+#SBATCH --cpus-per-task=1
+#SBATCH --gres=gpu:1
+#SBATCH --account=mb20
+#SBATCH --partition=m3g,m3h
+
+module load pytorch/1.3-cuda10
+
+python train_full.py
