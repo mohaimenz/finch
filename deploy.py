@@ -92,8 +92,8 @@ class Tester:
                     x = self.__get_slice(counter);
                     scores = net(x);
                     is_btf = True if scores[0][0] > scores[0][1] else False;
-                    print('Index: {}, BTF: {}'.format(counter, is_btf));
                     if is_btf is True:
+                        print('Index: {}, BTF: {}'.format(counter, is_btf));
                         self.__add_to_probables(counter);
                     counter += 1;
                 except:
@@ -125,7 +125,14 @@ if __name__ == '__main__':
     opt = opts.parse();
     # 1. 3_20200918_073000_Rec [-19.4619 146.7124].wav
     # 2. 7_20200917_073000_Rec [-19.4613 146.7108].wav
-    opt.file_name = '3_20200918_073000_Rec [-19.4619 146.7124]';
-    opt.record_path = '/Users/mmoh0027/Desktop/Finch/OriginalRecordings/';
-    tester = Tester(opt);
-    tester.TestModel();
+
+    # opt.record_path = '/Users/mmoh0027/Desktop/Finch/OriginalRecordings/';
+    # opt.label_path = '/Users/mmoh0027/Desktop/Finch/LabelledData/';
+    c = 0;
+    for txt_file_path in sorted(glob.glob(os.path.join(opt.label_path, '*.txt'))):
+        c += 1
+        opt.file_name = os.path.split(txt_file_path)[1].split('.Table')[0];
+        print('{} Processing: {}'.format(c, opt.file_name))
+        tester = Tester(opt);
+        tester.TestModel();
+    print('Finished Processing {} Files'.format(c))
