@@ -86,14 +86,14 @@ class Tester:
         net.eval();
         with torch.no_grad():
             continue_test = True;
-            counter = 90000;
+            counter = 0;
             while continue_test is True:
                 try:
                     x = self.__get_slice(counter);
                     scores = net(x);
                     is_btf = True if scores[0][0] > scores[0][1] else False;
                     if is_btf is True:
-                        print('Index: {}, BTF: {}'.format(counter, is_btf));
+                        # print('Index: {}, BTF: {}'.format(counter, is_btf));
                         self.__add_to_probables(counter);
                     counter += 1;
                 except:
@@ -119,9 +119,10 @@ class Tester:
 
         net.eval();
         self.__test(net);
-        exit();
+        # exit();
 
 if __name__ == '__main__':
+    import time;
     opt = opts.parse();
     # 1. 3_20200918_073000_Rec [-19.4619 146.7124].wav
     # 2. 7_20200917_073000_Rec [-19.4613 146.7108].wav
@@ -130,9 +131,14 @@ if __name__ == '__main__':
     # opt.label_path = '/Users/mmoh0027/Desktop/Finch/LabelledData/';
     c = 0;
     for txt_file_path in sorted(glob.glob(os.path.join(opt.label_path, '*.txt'))):
+        start = time.time();
         c += 1
-        opt.file_name = os.path.split(txt_file_path)[1].split('.Table')[0];
+        # opt.file_name = os.path.split(txt_file_path)[1].split('.Table')[0];
+        opt.file_name = '3_20200926_073000_Rec [-19.4619 146.7124]'
         print('{} Processing: {}'.format(c, opt.file_name))
         tester = Tester(opt);
         tester.TestModel();
+        end = time.time();
+        print('File {} - Time required to process: {}'.format(c, time.strftime("%H:%M:%S", time.gmtime(end-start))));
+        break;
     print('Finished Processing {} Files'.format(c))
