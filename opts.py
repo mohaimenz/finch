@@ -10,6 +10,13 @@ def parse():
     # parser.add_argument('--data', default='/home/md_sep04/experimentss/datasets/', required=False, help='Path to dataset')
     # parser.add_argument('--data', default='/home/mmoh0027/mb20_scratch/experiments/datasets/', required=False, help='Path to dataset')
 
+    #Handling unknown arguments
+    p, unknown = parser.parse_known_args();
+    # print(unknown);
+    for i in unknown:
+        if i.startswith('--'):
+            parser.add_argument(i, default=unknown[unknown.index(i)+1]);
+
     opt = parser.parse_args();
 
     #Leqarning settings
