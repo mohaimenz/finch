@@ -123,22 +123,24 @@ class Tester:
 
 if __name__ == '__main__':
     import time;
+    print(torch.cuda.is_available());
+    #exit();
     opt = opts.parse();
     # 1. 3_20200918_073000_Rec [-19.4619 146.7124].wav
-    # 2. 7_20200917_073000_Rec [-19.4613 146.7108].wav
+    # 2. 7_20200917_073000_Rec [-1False9.4613 146.7108].wav
 
-    # opt.record_path = '/Users/mmoh0027/Desktop/Finch/OriginalRecordings/';
-    # opt.label_path = '/Users/mmoh0027/Desktop/Finch/LabelledData/';
+    opt.record_path = '/home/mmoh0027/mb20/Finch/OriginalRecordings/';
+    opt.label_path = '/home/mmoh0027/mb20/Finch/LabelledData/';
     c = 0;
     for txt_file_path in sorted(glob.glob(os.path.join(opt.label_path, '*.txt'))):
         start = time.time();
         c += 1
-        # opt.file_name = os.path.split(txt_file_path)[1].split('.Table')[0];
-        opt.file_name = '3_20200926_073000_Rec [-19.4619 146.7124]'
+        opt.file_name = os.path.split(txt_file_path)[1].split('.Table')[0];
+        #opt.file_name = '3_20200926_073000_Rec [-19.4619 146.7124]'
         print('{} Processing: {}'.format(c, opt.file_name))
         tester = Tester(opt);
         tester.TestModel();
         end = time.time();
         print('File {} - Time required to process: {}'.format(c, time.strftime("%H:%M:%S", time.gmtime(end-start))));
-        break;
+        #break;
     print('Finished Processing {} Files'.format(c))
