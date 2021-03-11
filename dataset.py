@@ -82,7 +82,7 @@ class Generator():
 
 def setup(opt, split):
     # print(os.path.join(opt.data, opt.dataset, 'wav{}_norm_fixed.npz'.format(opt.fs // 1000)));
-    dataset = np.load(os.path.join(opt.data, opt.dataset, 'wav{}.npz'.format(opt.fs // 1000)), allow_pickle=True)
+    dataset = np.load(os.path.join(opt.data, opt.dataset, 'wav{}{}.npz'.format(opt.fs // 1000, opt.step_name)), allow_pickle=True)
     # Split to train and val
     train_sounds = []
     train_labels = []
