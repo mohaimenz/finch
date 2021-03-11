@@ -191,5 +191,5 @@ if __name__ == '__main__':
     for split in opt.splits:
         print('+-- Split {} --+'.format(split));
         opts.display_info(opt);
-        trainer = Trainer(opt, 4);
+        trainer = Trainer(opt, split);
         trainer.Train();
